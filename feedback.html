@@ -1,21 +1,27 @@
 <head>
-  <title>chat</title>
+  <title>Feedback Application</title>
 </head>
 
 <body>
-  {{> entryfield}}
-
-  {{> messages}}
+  {{> layout}}
 </body>
 
-<template name="entryfield">
-    <input type="text" id="name" placeholder="Name" /> <input type="text" id="message" placeholder="Your Message" />
+<template name="layout">
+	<h1>OSDCong Feedback Session</h1>
+	{{> yield}}
 </template>
 
-<template name="messages">
+<template name="entryfield">
+  <div id="content">
+	<h2> Enter Your FeedBacks </h2>
+    <input type="number" id="feedback" placeholder="out of 10" />
+  </div>
+</template>
+
+<template name="dashboard">
     <p>
         {{#each messages}}
-            <strong>{{name}}</strong>- {{message}}<br/>
+            <strong>{{name}}</strong><br/>
         {{/each}}
     </p>
 </template>
