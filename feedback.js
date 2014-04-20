@@ -7,7 +7,6 @@
  Routes
 ==============
 */
-
 Router.configure({
   layoutTemplate: 'layout',
   notFoundTemplate: 'notFound',
@@ -52,10 +51,12 @@ if (Meteor.isClient) {
   }
 
   Template.entryfield.events = {
-   "keydown #feedback": function(event){
-    if(event.which == 13){
+   "click #feedbackb": function(event){
+
+    if(event.which=1){
       // Submit the form
       var feedback = document.getElementById('feedback');
+      var div = document.getElementById('content');
 
       if(feedback.value != ''){
         Feedback.insert({
@@ -64,8 +65,11 @@ if (Meteor.isClient) {
         });
 
         name.value = '';
+        div.innerHTML = "<h2 id='aresponse'>Thank You</h2>"
       }
     }
+
+
    }
   }
 }
