@@ -1,8 +1,4 @@
 /*
-
-*/
-
-/*
 ===============
  Routes
 ==============
@@ -23,12 +19,12 @@ Router.map(function () {
   this.route('entryfield', {path:'/'});
 })
 
+
 /*
 ==============
   Models
 ==============
 */
-
 Feedback = new Meteor.Collection('feedback');
 
 
@@ -46,7 +42,30 @@ Meteor.startup(function () {
 
 if (Meteor.isClient) {
   
-  Template.dashboard.messages = function(){
+  
+
+  // send the average to the /dashboard
+  Template.dashboard.average = function(){
+    var count=0;
+    var av=0;
+    var Feeds = Feedback.find({}, { sort: { time: -1 }});
+    
+    Feeds.forEach(function (feed) {
+        av += parseInt(feed.name);
+        count += 1;
+    });
+
+    return av/count;
+  }
+
+  /* total no of feedbacks
+  Template.dashboard.counts = function(){
+    var Feeds = Feedback.find({}, { sort: { time: -1 }});
+    return count;
+  }*/
+
+  // send all the responses to the /dashboard
+  Template.dashboard.messages = function(){    
     return Feedback.find({}, { sort: { time: -1 }});
   }
 
@@ -68,8 +87,6 @@ if (Meteor.isClient) {
         div.innerHTML = "<h2 id='aresponse'>Thank You</h2>"
       }
     }
-
-
    }
   }
 }
