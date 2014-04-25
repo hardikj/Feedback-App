@@ -42,7 +42,16 @@ Meteor.startup(function () {
 
 if (Meteor.isClient) {
   
-  
+  //count the response
+  Template.dashboard.count = function(){
+    var count=0;
+    var Feeds = Feedback.find({}, { sort: { time: -1 }});
+    
+    Feeds.forEach(function (feed) {
+        count += 1;
+    });
+   return count;
+  };
 
   // send the average to the /dashboard
   Template.dashboard.average = function(){
@@ -55,7 +64,7 @@ if (Meteor.isClient) {
         count += 1;
     });
 
-    return av/count;
+    return Math.round(av/count);
   }
 
   /* total no of feedbacks

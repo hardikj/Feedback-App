@@ -1,5 +1,15 @@
 <head>
   <title>Feedback Application</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/cover.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <!--
+  <script src="../jquery-2.1.0.min.js"></script>
+  <script src="../jquery-2.1.0.min.map"></script>
+  <script src="bootstrap.min.js"></script>-->
 </head>
 
 <body>
@@ -7,28 +17,52 @@
 </body>
 
 <template name="layout">
-	<h1>OSDCong Feedback Session</h1>
-	{{> yield}}
+  <div class="site-wrapper">
+    <div class="site-wrapper-inner">
+        <div class="cover-container">
+           <div class="masthead clearfix">
+              <div class="inner">
+                <h3 class="masthead-brand">OSDConf Feedback</h3>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="/">Home</a></li>
+                  <li><a href="/dashboard">Dashboard</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="inner cover">
+               {{> yield}}
+            </div>
+        </div>
+    </div>
+
+  </div>
 </template>
 
 <template name="entryfield">
   <div id="content">
-	<h2> Enter Your FeedBacks </h2>
-    <input type="number" id="feedback" placeholder="1-10" min="0" max="10"/>
-    <button id="feedbackb">Submit</button>
+  <h1 class="cover-heading shitty-header"> Rate the Food?</h1>
+	<h2 class="shitty-header"> Enter Your Feedback here </h2>
+    <form class="form-inline" role="form">
+      <div class="form-group">
+         <label class="sr-only" for="feedback">1-10</label>
+         <input type="number" class="form-control" id="feedback" placeholder="1-10" min="0" max="10" style="width:200px;"/>
+       </div>
+      <button id="feedbackb" class="btn btn-primary">Submit</button>
+    </form>
+
   </div>
 </template>
 
 <template name="dashboard">
-
+    <!--
     <p>
         {{#each messages}}
             <strong>{{name}}</strong><br/>
         {{/each}}
     </p>
-
+     -->
     <h1> Average - {{average}} </h1>
 
-    <h2> Total Votes Counts -</h2>
+    <h2> Total Votes Counts - {{count}}</h2>
 
 </template>
