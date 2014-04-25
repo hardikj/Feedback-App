@@ -5,8 +5,6 @@
 */
 Router.configure({
   layoutTemplate: 'layout',
-  notFoundTemplate: 'notFound',
-  loadingTemplate: 'loading'
 });
 
 // route for main screen
@@ -34,15 +32,10 @@ Feedback = new Meteor.Collection('feedback');
 ====================
 */
 
-Meteor.startup(function () {
-  // client startup code here 
-  Feedback.remove ({})
-});
-
 
 if (Meteor.isClient) {
   
-  //count the response
+  //count the responses
   Template.dashboard.count = function(){
     var count=0;
     var Feeds = Feedback.find({}, { sort: { time: -1 }});
@@ -67,12 +60,6 @@ if (Meteor.isClient) {
     return Math.round(av/count);
   }
 
-  /* total no of feedbacks
-  Template.dashboard.counts = function(){
-    var Feeds = Feedback.find({}, { sort: { time: -1 }});
-    return count;
-  }*/
-
   // send all the responses to the /dashboard
   Template.dashboard.messages = function(){    
     return Feedback.find({}, { sort: { time: -1 }});
@@ -82,18 +69,20 @@ if (Meteor.isClient) {
    "click #feedbackb": function(event){
 
     if(event.which=1){
+
       // Submit the form
       var feedback = document.getElementById('feedback');
       var div = document.getElementById('content');
 
-      if(feedback.value != ''){
+      if(feedback.value != '' && parseInt(feedback.value) <= 10){
+        div.innerHTML = "<h2 id='response'>Thank You</h2>";
+
         Feedback.insert({
           name: feedback.value,
           time: Date.now()
         });
 
         name.value = '';
-        div.innerHTML = "<h2 id='aresponse'>Thank You</h2>"
       }
     }
    }
@@ -103,7 +92,7 @@ if (Meteor.isClient) {
 if (Meteor.isServer) {
 
   Meteor.startup(function () {
-
-    // on server startup code here    
+    // client startup code here 
+    Feedback.remove ({});
   });
 }
